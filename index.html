@@ -3,43 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madwesh J Devadiga - Resume</title>
-    <!-- Add this script in your HTML head or before the closing body tag -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script> -->
+    <title>Madwesh J Devadiga - Robotics Software Engineer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation Controls -->
     <div class="navigation-controls no-print">
-        <div class="page-indicator">
-            <span id="current-page">Page 1 of 2</span>
+        <div class="nav-left">
+            <div class="page-indicator">
+                <span id="current-page">Page 1 of 6</span>
+            </div>
         </div>
         <div class="nav-buttons">
-            <button id="prev-btn" class="btn btn--secondary" style="display: none;">← Previous Page</button>
+            <button id="prev-btn" class="btn btn--secondary" style="display: none;">← Previous</button>
             <button id="next-btn" class="btn btn--primary">Next Page →</button>
         </div>
     </div>
 
-    <!-- Page 1 -->
+    <!-- Page 1 - Header, Summary, Technical Skills -->
     <div class="resume-page" id="page-1">
         <!-- Header -->
         <header class="resume-header">
             <div class="header-content">
                 <h1 class="name">Madwesh J Devadiga</h1>
-                <h2 class="title">Robotics Engineer | Embedded Systems Specialist</h2>
+                <h2 class="title">Robotics Software Engineer | Multidomain Integration Specialist</h2>
                 <div class="contact-info">
-                    <div class="contact-row">
-                        <span>📧 madweshjd@gmail.com</span>
-                        <span>📱 +91 7411429470</span>
-                    </div>
-                    <div class="contact-row">
-                        <span>📍 Mangaluru, Karnataka, India</span>
-                        <a href="https://linkedin.com/in/madwesh-j-devadiga" target="_blank" style="color: inherit; text-decoration: none;">
-                            <span>💼 linkedin.com/in/madwesh-j-devadiga</span>
-                        </a>
-                        <a href="https://github.com/Madwesh-india" target="_blank" style="color: inherit; text-decoration: none;">
-                            <span>🔗 github.com/Madwesh-india</span>
-                        </a>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>madweshjd@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <span>+91 7411429470</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Mangaluru, Karnataka, India</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">💼</span>
+                            <span>linkedin.com/in/madwesh-j-devadiga</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🔗</span>
+                            <span>github.com/Madwesh-india</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📑</span>
+                            <span>madwesh-india.github.io</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,7 +62,7 @@
         <section class="resume-section">
             <h3 class="section-title">Professional Summary</h3>
             <p class="summary-text">
-                Robotics Engineer with 7+ months of industry experience specializing in autonomous systems, embedded programming, and real-time robotics applications. Expert in ROS2, Micro-ROS, and embedded systems development with hands-on experience in industrial automation, entertainment robotics, and research applications.
+                Robotics Software Engineer with 7+ months of comprehensive industry experience specializing in autonomous systems, embedded programming, and real-time robotics applications. Proven expertise in ROS 2, micro-ROS, and embedded systems development with demonstrated success in industrial automation, entertainment robotics, research and educational technology. Strong leadership background with experience managing multidisciplinary teams and mentoring junior developers.
             </p>
         </section>
 
@@ -58,217 +71,535 @@
             <h3 class="section-title">Technical Skills</h3>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h4>Robotics Systems</h4>
+                    <h4 class="skill-category-title">Robotics Software & Control Systems</h4>
                     <div class="skill-tags">
-                        <span>ROS2</span>
-                        <span>Rclpy</span>
-                        <span>Rclcpp</span>
-                        <span>Gazebo Simulation</span>
-                        <span>Control Systems</span>
-                        <span>Kinematics and Dynamics</span>
-                        <span>Sensor Fusion</span>
+                        <span>ROS 2</span>
+                        <span>micro-ROS</span>
+                        <span>rclpy/rclcpp/rclc</span>
                         <span>SLAM</span>
-                        <span>Custom Navigation Stack</span>
+                        <span>Navigation Stack Development</span>
+                        <span>Gazebo Simulation</span>
+                        <span>RViz Visualization</span>
+                        <span>RQt Tools</span>
+                        <span>Sensor Fusion</span>
+                        <span>Path Planning</span>
+                        <span>Robot Kinematics and Dynamics</span>
+                        <span>Control Systems Design</span>
+                        <span>Multi-Robot Coordination</span>
+                        <span>Autonomous Navigation</span>
+                        <span>Real-time Motion Control</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h4>Embedded Systems</h4>
+                    <h4 class="skill-category-title">Embedded & Real-Time Systems</h4>
                     <div class="skill-tags">
-                        <span>ESP32/ESP-IDF</span>
-                        <span>Micro-ROS</span>
                         <span>Embedded C/C++</span>
+                        <span>Real-time Programming</span>
                         <span>FreeRTOS</span>
-                        <span>Real-time Systems</span>
-                        <span>Raspberry Pi 5</span>
+                        <span>I2C/SPI/UART</span>
+                        <span>Interrupt Handling</span>
+                        <span>ADC/DAC Implementation</span>
+                        <span>PWM Control</span>
+                        <span>GPIO Programming</span>
+                        <span>DMA Programming</span>
+                        <span>Wi-Fi</span>
+                        <span>Circuit Design</span>
+                        <span>PCB Design</span>
+                        <span>Raspberry Pi</span>
                         <span>Jetson Nano</span>
-                        <span>Circuit and PCB Design</span>
+                        <span>ESP-IDF/ESP32</span>
                         <span>Arduino</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h4>Programming Languages</h4>
+                    <h4 class="skill-category-title">Programming, AI & Simulation Tools</h4>
                     <div class="skill-tags">
-                        <span>Modern C/C++</span>
                         <span>Python</span>
-                        <span>Embedded C</span>
-                        <span>Shell Scripting</span>
+                        <span>Modern C++</span>
                         <span>JavaScript</span>
-                        <span>Matlab</span>
+                        <span>MATLAB/Simulink</span>
+                        <span>Shell Scripting</span>
+                        <span>PyTorch</span>
+                        <span>TensorFlow</span>
+                        <span>Deep Learning</span>
+                        <span>Custom Simulation</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h4>3d Modeling and Manufacturing tools</h4>
+                    <h4 class="skill-category-title">Perception & Computer Vision for Robotics</h4>
                     <div class="skill-tags">
-                        <span>Fusion 360</span>
-                        <span>3D Printing</span>
-                        <span>Laser Cutting</span>
-                        <span>URDF Generation</span>
-                        <span>PLC Programming</span>
+                        <span>OpenCV (C++/Python)</span>
+                        <span>Stereo Vision Systems</span>
+                        <span>GPU Computing (CUDA)</span>
+                        <span>ArUco Marker Detection</span>
+                        <span>Point Cloud Processing</span>
+                        <span>Visual Odometry</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h4>Computer Vision</h4>
-                    <div class="skill-tags">
-                        <span>OpenCV</span>
-                        <span>Stereo Vision</span>
-                        <span>GPU-Acceleration</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Development Tools</h4>
+                    <h4 class="skill-category-title">Systems Integration & State-Space Modeling</h4>
                     <div class="skill-tags">
                         <span>Git/GitHub</span>
                         <span>Linux</span>
-                        <span>RViz/RQt</span>
                         <span>Docker</span>
+                        <span>URDF/XACRO</span>
+                        <span>CMake/Make</span>
+                        <span>CI/CD</span>
+                        <span>Hardware-in-the-loop</span>
+                        <span>Closed-loop Feedback</span>
+                        <span>Mathematical Transforms</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4 class="skill-category-title">Hardware Prototyping & Fabrication</h4>
+                    <div class="skill-tags">
+                        <span>3D Modeling & CAD</span>
+                        <span>3D Printing</span>
+                        <span>Laser Cutting</span>
+                        <span>Soldering & PCB Assembly</span>
+                        <span>Electronic Prototyping</span>
+                        <span>3D CAD to URDF</span>
+                        <span>URDF Plugin Integration</span>
                     </div>
                 </div>
             </div>
         </section>
+    </div>
 
+    <!-- Page 2 - Education, Certifications, Awards -->
+    <div class="resume-page" id="page-2" style="display: none;">
         <!-- Education -->
         <section class="resume-section">
             <h3 class="section-title">Education</h3>
             <div class="education-item">
-                <h4>Bachelor of Engineering - Robotics and Artificial Intelligence Engineering</h4>
+                <div class="education-header">
+                    <h4>Bachelor of Engineering - Robotics and Artificial Intelligence Engineering</h4>
+                    <span class="cgpa-badge">CGPA: 9.03</span>
+                </div>
                 <p class="institution">NMAM Institute of Technology, Nitte | Karkala, India</p>
-                <div class="education-details">
-                    <span>2022-2025</span>
-                    <span class="cgpa">CGPA: 9.03</span>
+                <p class="duration">2022 - 2025</p>
+                
+                <div class="coursework-section">
+                    <h5 class="coursework-title">Key Coursework:</h5>
+                    <div class="coursework-grid">
+                        <div class="coursework-category">
+                            <h6>Robotics & Automation</h6>
+                            <ul>
+                                <li>Advanced Robotics and Automation</li>
+                                <li>Robot Kinematics and Dynamics</li>
+                                <li>Path Planning and Navigation</li>
+                                <!-- <li>Industrial Automation</li> -->
+                                <li>Human-Robot Interaction</li>
+                                <li>Wheeled Mobile Robots</li>
+                                <li>Micro Aerial Vehicles</li>
+                            </ul>
+                        </div>
+                        <div class="coursework-category">
+                            <h6>Embedded Systems</h6>
+                            <ul>
+                                <li>Embedded Systems Design</li>
+                                <li>Real-time Systems Programming</li>
+                                <li>Microprocessor and Microcontroller Systems</li>
+                                <li>Sensors and Actuators</li>
+                                <li>IoT Systems Design</li>
+                                <li>Analog and Digital Circuits</li>
+                            </ul>
+                        </div>
+                        <div class="coursework-category">
+                            <h6>AI & Computer Vision</h6>
+                            <ul>
+                                <li>Artificial Intelligence and Machine Learning</li>
+                                <li>Neural Networks and Deep Learning</li>
+                                <li>Computer Vision and Image Processing</li>
+                                <li>Digital Signal Processing</li>
+                            </ul>
+                        </div>
+                        <div class="coursework-category">
+                            <h6>Control Systems</h6>
+                            <ul>
+                                <li>Control Systems Engineering</li>
+                                <li>Advanced Control Theory</li>
+                                <li>Motion Control using PLC</li>
+                                <li>Hydraulics and Pneumatics</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Key Achievements -->
-        <section class="resume-section">
-            <h3 class="section-title">Awards & Recognition</h3>
-            <div class="achievements">
-                <div class="achievement">
-                    <h4>Best Paper Award - RANE 2023</h4>
-                    <p>Awarded Best Paper for 'IoT-based Path Planning and Control of Mecanum Wheeled Mobile Robots' at 4th International Conference on Robotics Automation</p>
-                </div>
-                <div class="achievement">
-                    <h4>National Level Robothon 2024 - 2nd Place</h4>
-                    <p>Second place recognition for fully autonomous robotic system designed for real-time industrial task execution</p>
-                </div>
-                <div class="achievement">
-                    <h4>e-Yantra 2023 (IIT Bombay) - Top 30</h4>
-                    <p>Achieved top 30 ranking in prestigious international robotics competition focused on collaborative multi-robot coordination</p>
+                <div class="thesis-section">
+                    <h5 class="thesis-title">Final Year Thesis:</h5>
+                    <p class="thesis-description">"Development of Swarm Robotics System for Cooperative Task Execution in Agricultural Applications" - Research focuses on multi-robot coordination, distributed algorithms, and precision agriculture applications.</p>
                 </div>
             </div>
         </section>
 
         <!-- Certifications -->
         <!-- <section class="resume-section">
-            <h3 class="section-title">Certifications</h3>
-            <div class="certifications">
-                <div class="cert-item">Deep Learning with PyTorch - Advanced neural network implementation and training</div>
-                <div class="cert-item">Master Computer Vision OpenCV3 in Python and Machine Learning</div>
-                <div class="cert-item">Hands-on Artificial Intelligence with TensorFlow - Production-ready AI system development</div>
-                <div class="cert-item">Hands-on Workshop on IoT Systems - Industrial IoT integration and embedded connectivity</div>
+            <h3 class="section-title">Professional Certifications</h3>
+            <div class="certifications-grid">
+                <div class="certification-card">
+                    <h4>Deep Learning with PyTorch</h4>
+                    <p class="issuer">Udemy/PyTorch Foundation</p>
+                    <p class="cert-description">Advanced neural network implementation, training optimization, and deployment strategies</p>
+                </div>
+                <div class="certification-card">
+                    <h4>Master Computer Vision with OpenCV3</h4>
+                    <p class="issuer">Udemy</p>
+                    <p class="cert-description">Comprehensive computer vision algorithms, real-time processing, and ML integration</p>
+                </div>
+                <div class="certification-card">
+                    <h4>Hands-on AI with TensorFlow</h4>
+                    <p class="issuer">Coursera/Google</p>
+                    <p class="cert-description">Production-ready AI system development, model optimization, and deployment</p>
+                </div>
+                <div class="certification-card">
+                    <h4>Advanced ROS2 Development</h4>
+                    <p class="issuer">Open Robotics</p>
+                    <p class="cert-description">Professional ROS2 development, package creation, and system integration</p>
+                </div>
+                <div class="certification-card">
+                    <h4>Embedded Systems Programming</h4>
+                    <p class="issuer">ARM Education</p>
+                    <p class="cert-description">Real-time programming, RTOS implementation, and hardware abstraction</p>
+                </div>
+                <div class="certification-card">
+                    <h4>IoT Systems Workshop</h4>
+                    <p class="issuer">IEEE</p>
+                    <p class="cert-description">Industrial IoT integration, embedded connectivity, and sensor network design</p>
+                </div>
             </div>
         </section> -->
+
+        <!-- Awards & Recognition -->
+        <section class="resume-section">
+            <h3 class="section-title">Awards & Recognition</h3>
+            <div class="achievements-detailed">
+                <div class="achievement-card-detailed">
+                    <h4>Best Paper Award - RANE 2023</h4>
+                    <p class="achievement-description">Awarded Best Paper for 'IoT-based Path Planning and Control of Mecanum Wheeled Mobile Robots' at 4th International Conference on Robotics Automation and Non-destructive Evaluation. Project demonstrated innovative approach to remote robot control using ESP32 microcontroller with custom mobile and desktop applications.</p>
+                </div>
+                <div class="achievement-card-detailed">
+                    <h4>National Level Robothon 2024 - 2nd Place</h4>
+                    <p class="achievement-description">Second place recognition for fully autonomous robotic system designed for real-time industrial task execution at Jyothy Institute of Technology, Bengaluru. Competed against 200+ teams nationwide.</p>
+                </div>
+                <div class="achievement-card-detailed">
+                    <h4>e-Yantra 2023 (IIT Bombay) - Top 30</h4>
+                    <p class="achievement-description">Achieved top 30 ranking in prestigious international robotics competition focused on collaborative multi-robot coordination. Designed and implemented coordinated drawing system using multiple robots.</p>
+                </div>
+                <!-- <div class="achievement-card-detailed">
+                    <h4>ISRO Robotics Challenge 2024 - Top 100</h4>
+                    <p class="achievement-description">Qualified to second round (top 100) among approximately 1500 teams across India for Mars rover development challenge. Led team of 23 members through complex design and implementation phases.</p>
+                </div> -->
+            </div>
+        </section>
     </div>
 
-    <!-- Page 2 -->
-    <div class="resume-page" id="page-2" style="display: none;">
-        <!-- Professional Experience -->
+    <!-- Page 3 - Professional Experience -->
+    <div class="resume-page" id="page-3" style="display: none;">
         <section class="resume-section">
             <h3 class="section-title">Professional Experience</h3>
             
-            <div class="experience-item">
+            <div class="experience-item-detailed">
                 <div class="experience-header">
-                    <h4>Robotics Engineer</h4>
-                    <span class="duration">May 2025 - Aug 2025</span>
+                    <div class="experience-title">
+                        <h4>Robotics Engineer</h4>
+                        <p class="company">Vanora Robots | Mangaluru, Karnataka</p>
+                    </div>
+                    <div class="experience-meta">
+                        <span class="duration">May 2025 - Aug 2025</span>
+                        <span class="type">Full-time</span>
+                    </div>
                 </div>
-                <p class="company">Vanora Robots | Mangaluru, Karnataka | Full-time</p>
-                <ul class="achievements-list">
-                    <li>Built VGo entertainment robotics platform enabling multi-robot coordination for interactive experiences</li>
-                    <li>Implemented inter-system communication framework for scoring, feature integration, and real-time synchronization</li>
-                    <li>Devised electronic control systems with low-level programming for performance and reliability</li>
-                    <li>Mentored a team of 5 interns on embedded systems, ROS 2 integration, and best practices in robotics development</li>
+                <ul class="achievements-list-detailed">
+                    <li>Architected and developed VGo entertainment robotics platform enabling seamless multi-robot coordination</li>
+                    <li>Designed and implemented comprehensive inter-system communication framework using microRos and Ros2 for real-time scoring, feature integration, and synchronization across distributed robot network</li>
+                    <li>Developed robust electronic control systems with low-level programming in Esp-IDF (C++), achieving 99.7% system uptime and <10ms response times for critical control functions</li>
+                    <li>Mentored a team of 5 interns on a highway marking project on segmentation, embedded system and system design</li>
+                    <li>Implemented comprehensive testing. Including unit tests, integration tests, and hardware-in-the-loop validation</li>
                 </ul>
             </div>
 
-            <div class="experience-item">
+            <div class="experience-item-detailed">
                 <div class="experience-header">
-                    <h4>Robot Developer Intern</h4>
-                    <span class="duration">Jan 2025 - Apr 2025</span>
+                    <div class="experience-title">
+                        <h4>Robot Developer Intern</h4>
+                        <p class="company">Vanora Robots | Mangaluru, Karnataka</p>
+                    </div>
+                    <div class="experience-meta">
+                        <span class="duration">Jan 2025 - Apr 2025</span>
+                        <span class="type">Internship</span>
+                    </div>
                 </div>
-                <p class="company">Vanora Robots | Mangaluru, Karnataka | Internship</p>
-                <ul class="achievements-list">
-                    <li>Created Blackburn industrial material handling robot with autonomous navigation for 500m² warehouse operations</li>
-                    <li>Designed state estimator combining vSLAM, IMU, and encoder data for sub-5cm accuracy under 125kg payload</li>
-                    <li>Optimized navigation on Raspberry Pi 5, cutting CPU usage from 80% to 40% while keeping temperatures below 70°C</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Major Projects -->
-        <section class="resume-section">
-            <h3 class="section-title">Projects</h3>
-
-            <div class="project-item">
-                <div class="project-header">
-                    <h4>Autonomous Mars Rover - ISRO Robotics Challenge 2024</h4>
-                    <span class="duration">Dec 2023 - Jul 2024</span>
-                </div>
-                <p class="project-role">Team Lead (23 members) | Technologies: ROS2, Micro-ROS, ESP32, Embedded C++, PID Control, SLAM</p>
-                <ul class="project-achievements">
-                    <li>Led a multidisciplinary team to Top 100 national ranking out of 1500+ participating teams in ISRO's prestigious robotics challenge</li>
-                    <li>Designed and fabricated custom rocker-bogie suspension system and 6-DOF robotic manipulator with scissor gripper mechanism</li>
-                    <li>Implemented Micro-ROS on ESP32 platform for real-time motor control with integrated PID feedback and encoder systems</li>
+                <ul class="achievements-list-detailed">
+                    <li>Designed and implemented the Blackburn industrial material-handling robot with a fully autonomous navigation system, capable of operating in a 500 m² warehouse environment with dynamic obstacles</li>
+                    <li>Developed a high-precision state estimator by fusing visual SLAM, IMU data, and encoder feedback, achieving sub-5 cm localization accuracy while handling payloads of up to 125 kg</li>
+                    <li>Engineered an advanced sensor fusion algorithm integrating stereo cameras, LiDAR, IMU, and wheel encoders for robust navigation in GPS-denied environments</li>
+                    <li>Optimized navigation algorithms for Raspberry Pi 5 deployment by converting code from Python to C++, reducing CPU utilization from 80% to 40% and halving memory usage while maintaining operating temperatures below 70°C</li>
+                    <li>Diagnosed and optimized camera node processing, reducing its CPU load from 75% to 30% through targeted pipeline improvements</li>
+                    <li>Validated through simulation and real-world testing, the robot completed multiple zone-based missions with 100% delivery success rate during factory trials.</li>
                 </ul>
             </div>
 
-            <div class="project-item">
-                <div class="project-header">
-                    <h4>Swarm Robotics System for Cooperative Applications</h4>
-                    <span class="duration">Aug 2024 - Nov 2024</span>
+            <div class="experience-item-detailed">
+                <div class="experience-header">
+                    <div class="experience-title">
+                        <h4>Robotics Lab Developer - Image Processing</h4>
+                        <p class="company">NMAM Institute of Technology - Robotics & AI Department</p>
+                    </div>
+                    <div class="experience-meta">
+                        <span class="duration">Jun 2024 - Jun 2025</span>
+                        <span class="type">Part-time Research</span>
+                    </div>
                 </div>
-                <p class="project-role">Team Lead (4 members) | Technologies: ESP32, Swarm Intelligence, ArUco Tracking, Computer Vision, Distributed Control</p>
-                <ul class="project-achievements">
-                    <li>Architected modular swarm robotics platform for cooperative surface marking in precision agriculture and roadwork automation</li>
-                    <li>Built low-cost differential-drive robots using ESP32 microcontrollers for both motion control and inter-robot communication</li>
-                    <li>Implemented PID-based motion control with encoder feedback and overhead camera ArUco marker-based localization</li>
-                </ul>
-            </div>
-
-            <div class="project-item">
-                <div class="project-header">
-                    <h4>Robotics Image Processing Lab Development</h4>
-                    <span class="duration">June 2024 - June 2025</span>
-                </div>
-                <p class="project-role">
-                    Technologies: OpenCV2, ROS2, Simulation-to-Hardware Bridging, UI/UX for Robotics, Lab Curriculum Design, Embedded Systems
-                </p>
-                <ul class="project-achievements">
-                    <li>Designed a custom robotics image processing lab with exercises on detection, tracking, filtering, and edge detection for robotics</li>
-                    <li>Built a dual-mode launcher UI enabling seamless switching between simulation and real hardware to improve hands-on learning</li>
-                    <li>Created modular templates and scripts by topic and difficulty, with iterative improvements based on faculty and student feedback</li>
-                </ul>
-            </div>
-
-            <div class="project-item">
-                <div class="project-header">
-                    <h4>
-                        <a href="https://github.com/Madwesh-india/ros2-project-builder" target="_blank" style="color: inherit; text-decoration: none;">ROS 2</a> &amp; 
-                        <a href="https://github.com/Madwesh-india/uros-esp-idf-project-builder" target="_blank" style="color: inherit; text-decoration: none;">Micro-ROS</a> Development Automation Toolkits
-                    </h4>                    
-                    <span class="duration">May 2025 - Present</span>
-                </div>
-                <p class="project-role">
-                    Technologies: ROS 2, Micro-ROS, Python, C++, ESP32, ESP-IDF, CLI Development, Code Generation, Build Automation
-                </p>
-                <ul class="project-achievements">
-                    <li>Created cross-platform CLI toolkit automating ROS 2 and Micro-ROS package and node creation for Python, C++, and ESP-IDF</li>
-                    <li>Built interactive configurator with auto-complete, and support for publishers, subscribers, services, timers, and QoS setup</li>
-                    <li>Constructed memory-optimized build system with dynamic file fetching, symbolic linking for efficient microcontroller deployments</li>
+                <ul class="achievements-list-detailed">
+                    <li>Led development of comprehensive robotics image processing laboratory for undergraduate robotics education, serving 60+ students annually</li>
+                    <li>Designed and implemented 10+ practical exercises covering object detection, tracking, filtering, edge detection, and advanced computer vision algorithms</li>
+                    <li>Built innovative dual-mode launcher UI enabling seamless switching between Gazebo simulation and real hardware deployment</li>
+                    <li>Created modular, scalable template system organized by complexity levels and learning objectives, facilitating progressive skill development</li>
+                    <li>Developed comprehensive documentation and tutorial materials adopted as standard curriculum across multiple engineering disciplines</li>
                 </ul>
             </div>
         </section>
     </div>
 
+    <!-- Page 4 - Flagship Projects -->
+    <div class="resume-page" id="page-4" style="display: none;">
+        <section class="resume-section">
+            <h3 class="section-title">Flagship Projects</h3>
+
+            <div class="project-item-detailed">
+                <div class="project-header">
+                    <h4>Autonomous Mars Rover - ISRO Robotics Challenge 2024</h4>
+                    <div class="project-meta">
+                        <span class="duration">Dec 2023 - Jul 2024</span>
+                        <span class="role">Team Lead (23 members)</span>
+                    </div>
+                </div>
+                <p class="technologies">ROS2, Micro-ROS, ESP32, Embedded C++, PID Control, Computer Vision, Mechanical Design</p>
+                <ul class="project-achievements-detailed">
+                    <li>Led multidisciplinary team of 23 members to achieve Top 100 national ranking out of 1500+ participating teams in ISRO's prestigious robotics challenge</li>
+                    <li>Designed and fabricated bio inspired rocker suspension system and arm system, for easy ground reach</li>
+                    <li>Implemented comprehensive microROS communication architecture on ESP32 platform for real-time motor control</li>
+                    <li>Closed loop motor control with integrated PID feedback and encoder systems was designed for Drive and Steering</li>
+                    <li>Engineered a mobility system enabling both omnidirectional movement and Ackermann steering for navigation.</li>
+                </ul>
+            </div>
+
+            <div class="project-item-detailed">
+                <div class="project-header">
+                    <h4>Swarm Robotics System for Cooperative Applications</h4>
+                    <div class="project-meta">
+                        <span class="duration">Aug 2024 - Nov 2024</span>
+                        <span class="role">Team Lead (4 members)</span>
+                    </div>
+                </div>
+                <p class="technologies">ESP32, Swarm Intelligence, ArUco Tracking, Computer Vision, Distributed Control, Wireless Communication</p>
+                <ul class="project-achievements-detailed">
+                    <li>Architected comprehensive modular swarm robotics platform for cooperative surface marking applications</li>
+                    <li>Designed cost-effective differential-drive robots using ESP32 for motion control and inter-robot communication</li>
+                    <li>Implemented PID-based motion control system and odometry fused with ArUco marker-based localization</li>
+                    <li>Developed custom distributed path planning and collision avoidance algorithms enabling real-time coordination of multiple robots in shared workspace</li>
+                    <li>Achieved high positional accuracy and demonstrated scalability across various operational scenarios including formation control, and synchronized task execution</li>
+                </ul>
+            </div>
+
+            <div class="project-item-detailed">
+                <div class="project-header">
+                    <h4>ROS 2 Project Builder</h4>
+                    <div class="project-meta">
+                        <span class="duration">Aug 2025  - Present</span>
+                        <span class="role">Individual Project</span>
+                        <span class="github-link">github.com/Madwesh-india/ros2-project-builder</span>
+                    </div>
+                </div>
+                <p class="technologies">ROS 2 (Humble/Jazzy), Python 3.8+, C++, CLI Development, rclcpp, rclpy, Code Generation</p>
+                <ul class="project-achievements-detailed">
+                    <li>Developed a command-line-based development automation tool to streamline the creation and configuration of ROS 2 packages and nodes, reducing boilerplate coding effort by over 90%</li>
+                    <li>Implemented automatic detection of available ROS 2 interfaces (messages, services, actions) with interactive, validation-enabled terminal UI supporting autocomplete</li>
+                    <li>Engineered code generation pipeline for publishers, subscribers, service servers/clients, and action servers/clients with full Python and C++ support</li>
+                    <li>Integrated configurable QoS profiles for publishers and subscribers to accommodate diverse communication requirements</li>
+                    <li>Designed modular template-based architecture enabling easy expansion for planned features such as parameter handling, launch file generation, and QoS configuration for services/actions</li>
+                    <li>Tested across multiple ROS 2 distributions ensuring compatibility and portability for both beginner and advanced robotics developers</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page 5 - Additional Projects & Research -->
+    <div class="resume-page" id="page-5" style="display: none;">
+        <section class="resume-section">
+            <h3 class="section-title">Additional Projects & Research</h3>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>ROS2 & Micro-ROS Development Automation Toolkits</h4>
+                    <div class="project-meta">
+                        <span class="duration">May 2025 - Present</span>
+                        <span class="github-link">github.com/Madwesh-india/uros-esp-idf-project-builder</span>
+                    </div>
+                </div>
+                <p class="technologies">ROS2, Micro-ROS, Python, C++, ESP32, ESP-IDF, CLI Development, Code Generation, Build Automation</p>
+                <p class="project-description">Developed cross-platform CLI toolkit automating ROS 2 and Micro-ROS package creation for Python, C++, and ESP-IDF. Includes interactive configurator with auto-complete, support for publishers, subscribers, services, timers, QoS, and a memory-optimized build system for efficient microcontroller deployment.</p>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>GPU-Accelerated Stereo Vision System</h4>
+                    <div class="project-meta">
+                        <span class="duration">Jan 2025 - Mar 2025</span>
+                    </div>
+                </div>
+                <p class="technologies">C++, OpenCV, CUDA, ROS2, Point Cloud Processing</p>
+                <p class="project-description">Implemented real-time stereo vision system using GPU acceleration for real-time 3D mapping and navigation. Generated dense point clouds at 30fps and published PointCloud2 messages in ROS2 for integration with navigation stack.</p>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>Reinforcement Learning Agents for LunarLander</h4>
+                    <div class="project-meta">
+                        <span class="duration">Aug 2023</span>
+                    </div>
+                </div>
+                <p class="technologies">Python, PyTorch, OpenAI Gym, Reinforcement Learning, Actor-Critic, A3C, PPO</p>
+                <p class="project-description">
+                    Trained reinforcement learning agents for the LunarLander environment using Actor-Critic, A3C, and PPO algorithms. Designed and optimized training pipelines with policy tuning, and performance benchmarking to achieve stable landings.
+                </p>
+            </div>
+
+            <div class="project-item">
+                <div class="project-header">
+                    <h4>Self-Initiated Reverse Engineering of Autonomous Robot</h4>
+                    <div class="project-meta">
+                        <span class="duration">Nov 2024 (15 Days)</span>
+                    </div>
+                </div>
+                <p class="technologies">ROS 2, SLAM, TF Broadcasting, Reverse Engineering, Intel RealSense D435i, YDLiDAR X4, Jetson Nano, C++, Python</p>
+                <p class="project-description">
+                    Reverse-engineered a closed-source Ackermann robot into a modular differential-drive platform using salvaged components, enhancing cost-efficiency and flexibility, and tested multiple sensor configurations.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Research & Publications -->
+        <section class="resume-section">
+            <h3 class="section-title">Research & Publications</h3>
+            <div class="research-items">
+                <div class="research-item">
+                    <h4>IoT-based Path Planning and Control of Mecanum Wheeled Mobile Robots</h4>
+                    <p class="publication-details">4th International Conference on Robotics Automation and Non-destructive Evaluation (RANE 2023)</p>
+                    <p class="research-description">Research paper detailing innovative approach to remote robot control using ESP32 microcontroller with custom mobile and desktop applications. <strong>Winner: Best Paper Award</strong></p>
+                </div>
+                <div class="research-item">
+                    <h4>Swarm Robotics for Agricultural Applications</h4>
+                    <p class="publication-details">Final Year Thesis - Under Review</p>
+                    <p class="research-description">Comprehensive research on multi-robot coordination systems for precision agriculture, focusing on distributed algorithms, communication protocols, and cooperative task execution.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page 6 - Leadership, Volunteer Work, Languages -->
+    <div class="resume-page" id="page-6" style="display: none;">
+        <!-- Leadership Experience -->
+        <section class="resume-section">
+            <h3 class="section-title">Leadership Experience</h3>
+            <div class="leadership-item">
+                <div class="leadership-header">
+                    <h4>Technical Workshop Instructor</h4>
+                </div>
+                <ul class="leadership-achievements">
+                    <li>Led hands-on workshops on ESP32 programming and ROS 2 for students and faculty.</li>
+                    <li>Directed faculty development programs, upskilling department lecturers in robotics and embedded systems.</li>
+                    <li>Provided expert training to external lecturers from NITK and Manipal Institute of Technology.</li>
+                    <li>Earned high praise for impactful instruction, surpassing value of paid external programs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Soft Skills -->
+        <section class="resume-section">
+            <h3 class="section-title">Soft Skills</h3>
+            <div class="soft-skills-grid">
+                <div class="soft-skill-item">
+                    <h4>Leadership & Team Collaboration</h4>
+                    <p>Guiding multidisciplinary teams to project success</p>
+                </div>
+                <div class="soft-skill-item">
+                    <h4>Technical Communication</h4>
+                    <p>Conveying complex concepts clearly to all audiences</p>
+                </div>
+                <div class="soft-skill-item">
+                    <h4>Problem Solving & Adaptability</h4>
+                    <p>Thriving in dynamic and challenging environments</p>
+                </div>
+                <div class="soft-skill-item">
+                    <h4>Mentoring & Knowledge Sharing</h4>
+                    <p>Helping others grow through guidance and training</p>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Languages -->
+        <section class="resume-section">
+            <h3 class="section-title">Language Proficiency</h3>
+            <div class="languages-grid">
+                <div class="language-item">
+                    <h4>English</h4>
+                    <p class="proficiency">Bilingual Proficiency</p>
+                </div>
+                <div class="language-item">
+                    <h4>Japanese</h4>
+                    <p class="language-description">Currently studying basic vocabulary using Japanese from Zero!, Duolingo and ChatGPT</p>
+                </div>
+                <div class="language-item">
+                    <h4>Tulu</h4>
+                    <p class="proficiency">Native Proficiency</p>
+                </div>
+                <div class="language-item">
+                    <h4>Kannada</h4>
+                    <p class="proficiency">Professional Working</p>
+                </div>
+                <div class="language-item">
+                    <h4>Hindi</h4>
+                    <p class="proficiency">Limited Working</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Skills -->
+        <section class="resume-section">
+            <h3 class="section-title">Additional Professional Skills</h3>
+            <div class="additional-skills-grid">
+                <div class="skill-item">
+                    <h4>Technical Writing</h4>
+                    <p>Documentation and Academic Writing</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Project Management</h4>
+                    <p>Team Leadership and Resource Planning</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Client Communication</h4>
+                    <p>Requirements Analysis and Stakeholder Management</p>
+                </div>
+                <div class="skill-item">
+                    <h4>System Integration</h4>
+                    <p>Testing and Performance Optimization</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Research Methodology</h4>
+                    <p>Academic Research and Patent Applications</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Budget Management</h4>
+                    <p>Resource Planning and Cost Optimization</p>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script src="app.js"></script>
 </body>

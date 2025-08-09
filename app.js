@@ -1,38 +1,104 @@
-// Resume Page Navigation
+// Resume Page Navigation and Functionality
 document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
-    const totalPages = 2;
+    const totalPages = 6;
+    let pageNavigation = null;
     
     // Get DOM elements
-    const page1 = document.getElementById('page-1');
-    const page2 = document.getElementById('page-2');
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pages[i] = document.getElementById(`page-${i}`);
+    }
+    
     const nextBtn = document.getElementById('next-btn');
     const prevBtn = document.getElementById('prev-btn');
     const pageIndicator = document.getElementById('current-page');
     
+    // Ensure navigation controls are visible
+    const navigationControls = document.querySelector('.navigation-controls');
+    if (navigationControls) {
+        navigationControls.style.display = 'flex';
+    }
+    
     // Navigation functions
     function showPage(pageNumber) {
+        console.log('Navigating to page:', pageNumber);
+        
+        if (pageNumber < 1 || pageNumber > totalPages) {
+            console.log('Invalid page number:', pageNumber);
+            return;
+        }
+        
         // Hide all pages
-        page1.style.display = 'none';
-        page2.style.display = 'none';
+        for (let i = 1; i <= totalPages; i++) {
+            if (pages[i]) pages[i].style.display = 'none';
+        }
         
         // Show requested page
-        if (pageNumber === 1) {
-            page1.style.display = 'flex';
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'inline-flex';
-        } else if (pageNumber === 2) {
-            page2.style.display = 'flex';
-            prevBtn.style.display = 'inline-flex';
-            nextBtn.style.display = 'none';
+        if (pages[pageNumber]) {
+            pages[pageNumber].style.display = 'flex';
+        }
+        
+        // Update navigation buttons
+        if (prevBtn) {
+            if (pageNumber === 1) {
+                prevBtn.style.display = 'none';
+                prevBtn.style.visibility = 'hidden';
+            } else {
+                prevBtn.style.display = 'inline-flex';
+                prevBtn.style.visibility = 'visible';
+                prevBtn.textContent = '← Previous';
+            }
+        }
+        
+        if (nextBtn) {
+            if (pageNumber === totalPages) {
+                nextBtn.style.display = 'none';
+                nextBtn.style.visibility = 'hidden';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                nextBtn.style.visibility = 'visible';
+                nextBtn.textContent = 'Next Page →';
+            }
         }
         
         // Update page indicator
-        pageIndicator.textContent = `Page ${pageNumber} of ${totalPages}`;
+        if (pageIndicator) {
+            pageIndicator.textContent = `Page ${pageNumber} of ${totalPages}`;
+        }
+        
+        // Update current page
         currentPage = pageNumber;
         
-        // Scroll to top
+        // Update page navigation dots
+        updatePageNavigation();
+        
+        // Smooth scroll to top
         window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Add page transition effect
+        const activePage = pages[pageNumber];
+        if (activePage) {
+            activePage.style.opacity = '0';
+            activePage.style.transform = 'translateY(20px)';
+            
+            requestAnimationFrame(() => {
+                activePage.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                activePage.style.opacity = '1';
+                activePage.style.transform = 'translateY(0)';
+            });
+        }
+        
+        // Update main content ID for accessibility
+        document.querySelectorAll('[id="page-content"]').forEach(el => {
+            el.removeAttribute('id');
+        });
+        if (activePage) {
+            activePage.setAttribute('id', 'page-content');
+        }
+        
+        // Update ARIA labels
+        updateARIALabels();
     }
     
     function nextPage() {
@@ -47,112 +113,289 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Add event listeners
+    // Update ARIA labels
+    function updateARIALabels() {
+        if (nextBtn && currentPage < totalPages) {
+            nextBtn.setAttribute('aria-label', `Navigate to page ${currentPage + 1} of ${totalPages}`);
+        }
+        if (prevBtn && currentPage > 1) {
+            prevBtn.setAttribute('aria-label', `Navigate to page ${currentPage - 1} of ${totalPages}`);
+        }
+    }
+    
+    // Add event listeners for navigation
     if (nextBtn) {
         nextBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('Next button clicked');
             nextPage();
         });
+        
+        // Ensure button is properly styled and visible
+        nextBtn.style.display = 'inline-flex';
+        nextBtn.style.visibility = 'visible';
     }
     
     if (prevBtn) {
         prevBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('Previous button clicked');
             prevPage();
         });
     }
     
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight' || e.key === 'PageDown') {
-            e.preventDefault();
-            nextPage();
-        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
-            e.preventDefault();
-            prevPage();
+        // Only handle navigation if not typing in an input
+        if (document.activeElement.tagName !== 'INPUT' && 
+            document.activeElement.tagName !== 'TEXTAREA') {
+            
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevPage();
+            } else if (e.key >= '1' && e.key <= '6') {
+                // Direct page navigation with number keys
+                e.preventDefault();
+                const pageNum = parseInt(e.key);
+                if (pageNum >= 1 && pageNum <= totalPages) {
+                    showPage(pageNum);
+                }
+            }
         }
     });
     
-    // Initialize first page
-    showPage(1);
+    // Add page navigation shortcuts
+    function createPageNavigation() {
+        pageNavigation = document.createElement('div');
+        pageNavigation.className = 'page-navigation no-print';
+        pageNavigation.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            background: var(--color-surface);
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            z-index: 1000;
+        `;
+        
+        for (let i = 1; i <= totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.textContent = i;
+            pageBtn.className = 'page-nav-btn';
+            pageBtn.setAttribute('data-page', i);
+            pageBtn.style.cssText = `
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                border: 1px solid var(--color-border);
+                background: var(--color-secondary);
+                color: var(--color-text);
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            // Add click event listener
+            pageBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const targetPage = parseInt(this.getAttribute('data-page'));
+                console.log('Page navigation dot clicked:', targetPage);
+                showPage(targetPage);
+            });
+            
+            pageBtn.addEventListener('mouseenter', function() {
+                if (parseInt(this.getAttribute('data-page')) !== currentPage) {
+                    this.style.background = 'var(--color-secondary-hover)';
+                    this.style.transform = 'scale(1.1)';
+                }
+            });
+            
+            pageBtn.addEventListener('mouseleave', function() {
+                if (parseInt(this.getAttribute('data-page')) !== currentPage) {
+                    this.style.background = 'var(--color-secondary)';
+                    this.style.transform = 'scale(1)';
+                }
+            });
+            
+            pageNavigation.appendChild(pageBtn);
+        }
+        
+        document.body.appendChild(pageNavigation);
+    }
     
-    // Print functionality - Fixed version
+    // Update active page indicator
+    function updatePageNavigation() {
+        if (!pageNavigation) return;
+        
+        const pageBtns = pageNavigation.querySelectorAll('.page-nav-btn');
+        pageBtns.forEach((btn) => {
+            const pageNum = parseInt(btn.getAttribute('data-page'));
+            if (pageNum === currentPage) {
+                btn.style.background = 'var(--color-primary)';
+                btn.style.color = 'var(--color-btn-primary-text)';
+                btn.style.transform = 'scale(1.1)';
+                btn.style.fontWeight = 'bold';
+            } else {
+                btn.style.background = 'var(--color-secondary)';
+                btn.style.color = 'var(--color-text)';
+                btn.style.transform = 'scale(1)';
+                btn.style.fontWeight = '500';
+            }
+        });
+    }
+    
+    // Print functionality - Enhanced version
     function setupPrint() {
-        // Create print button
         const printBtn = document.createElement('button');
-        printBtn.className = 'btn btn--outline no-print';
-        printBtn.innerHTML = '🖨️ Print Resume';
+        printBtn.className = 'btn btn--primary no-print';
+        printBtn.innerHTML = '🖨️ Print CV';
+        printBtn.setAttribute('aria-label', 'Print complete resume as PDF');
+        printBtn.id = 'print-resume-btn';
+        
         printBtn.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
             font-size: 14px;
-            padding: 8px 12px;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            color: var(--color-text);
+            padding: 10px 16px;
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+            border: none;
             border-radius: var(--radius-base);
             cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--duration-normal) var(--ease-standard);
+            font-family: var(--font-family-base);
+            font-weight: var(--font-weight-medium);
         `;
         
-        // Print button click handler
+        printBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.background = 'var(--color-primary-hover)';
+        });
+        
+        printBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.background = 'var(--color-primary)';
+        });
+        
         printBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            // Show both pages before printing
-            const originalPage1Display = page1.style.display;
-            const originalPage2Display = page2.style.display;
+            console.log('Print button clicked - preparing all 6 pages');
             
-            // Make both pages visible
-            page1.style.display = 'flex';
-            page2.style.display = 'flex';
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '⏳ Preparing...';
+            this.disabled = true;
             
-            // Remove any transitions or transforms
-            page1.style.transition = 'none';
-            page2.style.transition = 'none';
-            page1.style.transform = 'none';
-            page2.style.transform = 'none';
-            page1.style.opacity = '1';
-            page2.style.opacity = '1';
+            // Store current page states
+            const originalPageStates = {};
+            for (let i = 1; i <= totalPages; i++) {
+                if (pages[i]) {
+                    originalPageStates[i] = {
+                        display: pages[i].style.display,
+                        opacity: pages[i].style.opacity,
+                        transform: pages[i].style.transform,
+                        transition: pages[i].style.transition
+                    };
+                }
+            }
             
-            // Trigger print
-            setTimeout(function() {
+            // Make all pages visible for printing
+            for (let i = 1; i <= totalPages; i++) {
+                if (pages[i]) {
+                    pages[i].style.display = 'flex';
+                    pages[i].style.opacity = '1';
+                    pages[i].style.transform = 'none';
+                    pages[i].style.transition = 'none';
+                }
+            }
+            
+            // Add print-ready class to body
+            document.body.classList.add('print-ready');
+            
+            // Trigger print after ensuring layout is ready
+            setTimeout(() => {
                 try {
+                    // Force browser print dialog
                     window.print();
+                    console.log('Print dialog opened for 6-page resume');
                 } catch (error) {
                     console.log('Print failed:', error);
-                    // Fallback: try to open print dialog manually
-                    document.execCommand('print');
+                    // Alternative method for some browsers
+                    try {
+                        document.execCommand('print');
+                    } catch (fallbackError) {
+                        console.log('Fallback print also failed:', fallbackError);
+                        alert('Print failed. Please use Ctrl+P (Cmd+P on Mac) to print manually.');
+                    }
                 }
                 
-                // Restore original display after a short delay
-                setTimeout(function() {
-                    page1.style.display = originalPage1Display;
-                    page2.style.display = originalPage2Display;
-                    page1.style.transition = '';
-                    page2.style.transition = '';
+                // Restore original state
+                setTimeout(() => {
+                    document.body.classList.remove('print-ready');
+                    
+                    // Restore original page states
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (pages[i] && originalPageStates[i]) {
+                            pages[i].style.display = originalPageStates[i].display;
+                            pages[i].style.opacity = originalPageStates[i].opacity;
+                            pages[i].style.transform = originalPageStates[i].transform;
+                            pages[i].style.transition = originalPageStates[i].transition;
+                        }
+                    }
+                    
+                    // Reset button
+                    printBtn.innerHTML = originalText;
+                    printBtn.disabled = false;
+                    
+                    // Show current page properly
+                    showPage(currentPage);
                 }, 500);
-            }, 100);
+            }, 200);
         });
         
         document.body.appendChild(printBtn);
         
-        // Handle browser print events
-        window.addEventListener('beforeprint', function() {
-            // Ensure both pages are visible when printing
-            page1.style.display = 'flex';
-            page2.style.display = 'flex';
-            page1.style.opacity = '1';
-            page2.style.opacity = '1';
-            page1.style.transform = 'none';
-            page2.style.transform = 'none';
+        // Enhanced print event handlers
+        window.addEventListener('beforeprint', function(e) {
+            console.log('Before print event - showing all pages');
+            document.body.classList.add('printing');
+            
+            // Make all pages visible
+            for (let i = 1; i <= totalPages; i++) {
+                if (pages[i]) {
+                    pages[i].style.display = 'flex';
+                    pages[i].style.opacity = '1';
+                    pages[i].style.transform = 'none';
+                    pages[i].style.transition = 'none';
+                }
+            }
         });
         
-        window.addEventListener('afterprint', function() {
-            // Restore current page view after printing
-            setTimeout(function() {
+        window.addEventListener('afterprint', function(e) {
+            console.log('After print event - restoring current page view');
+            document.body.classList.remove('printing');
+            
+            setTimeout(() => {
                 showPage(currentPage);
             }, 100);
         });
@@ -161,117 +404,221 @@ document.addEventListener('DOMContentLoaded', function() {
     // Theme toggle functionality
     function setupTheme() {
         const themeToggle = document.createElement('button');
-        themeToggle.className = 'btn btn--outline no-print';
+        themeToggle.className = 'btn btn--secondary no-print';
         themeToggle.innerHTML = '🌙';
+        themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+        themeToggle.id = 'theme-toggle-btn';
+        
         themeToggle.style.cssText = `
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 80px;
+            right: 20px;
             z-index: 1000;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--color-surface);
+            background: var(--color-secondary);
             border: 1px solid var(--color-border);
             color: var(--color-text);
             cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all var(--duration-normal) var(--ease-standard);
+            font-size: 18px;
         `;
         
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = 'var(--shadow-lg)';
+        });
+        
+        themeToggle.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'var(--shadow-md)';
+        });
+        
+        themeToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const currentTheme = document.documentElement.getAttribute('data-color-scheme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
-            document.documentElement.setAttribute('data-color-scheme', newTheme);
-            themeToggle.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+            console.log('Theme toggle clicked, switching to:', newTheme);
             
-            // Save preference (if localStorage is available)
+            document.documentElement.setAttribute('data-color-scheme', newTheme);
+            this.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+            
+            // Save preference (with error handling since localStorage may not be available)
             try {
                 localStorage.setItem('resume-theme', newTheme);
             } catch (e) {
-                // localStorage not available, continue without saving
+                console.log('Could not save theme preference - localStorage not available');
             }
+            
+            // Add theme transition effect
+            document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
         });
         
-        // Load saved theme (if localStorage is available)
+        // Load saved theme
         try {
             const savedTheme = localStorage.getItem('resume-theme');
             if (savedTheme) {
                 document.documentElement.setAttribute('data-color-scheme', savedTheme);
                 themeToggle.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
+            } else {
+                // Use system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    document.documentElement.setAttribute('data-color-scheme', 'dark');
+                    themeToggle.innerHTML = '☀️';
+                }
             }
         } catch (e) {
-            // localStorage not available, use default theme
+            console.log('Theme detection failed, using light theme');
         }
         
         document.body.appendChild(themeToggle);
+        console.log('Theme toggle button created and added to page');
     }
     
     // Contact interactions
     function setupContactInteractions() {
-        const contactElements = document.querySelectorAll('.contact-row span');
+        const contactElements = document.querySelectorAll('.contact-item');
         
         contactElements.forEach(function(element) {
-            const text = element.textContent;
+            const textSpan = element.querySelector('span:last-child');
+            if (!textSpan) return;
+            
+            const text = textSpan.textContent;
             
             // Make email clickable
             if (text.includes('@')) {
                 element.style.cursor = 'pointer';
-                element.style.textDecoration = 'underline';
-                element.addEventListener('click', function() {
-                    const email = text.replace('📧 ', '');
-                    window.open('mailto:' + email, '_blank');
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open('mailto:' + text, '_blank');
+                });
+                
+                element.addEventListener('mouseenter', function() {
+                    this.style.textDecoration = 'underline';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textDecoration = 'none';
                 });
             }
             
             // Make LinkedIn clickable
             if (text.includes('linkedin.com')) {
                 element.style.cursor = 'pointer';
-                element.style.textDecoration = 'underline';
-                element.addEventListener('click', function() {
-                    const linkedin = text.replace('💼 ', '');
-                    window.open('https://' + linkedin, '_blank');
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open('https://' + text, '_blank');
+                });
+                
+                element.addEventListener('mouseenter', function() {
+                    this.style.textDecoration = 'underline';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textDecoration = 'none';
                 });
             }
             
             // Make GitHub clickable
             if (text.includes('github.com')) {
                 element.style.cursor = 'pointer';
-                element.style.textDecoration = 'underline';
-                element.addEventListener('click', function() {
-                    const github = text.replace('🔗 ', '');
-                    window.open('https://' + github, '_blank');
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.open('https://' + text, '_blank');
+                });
+                
+                element.addEventListener('mouseenter', function() {
+                    this.style.textDecoration = 'underline';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textDecoration = 'none';
+                });
+            }
+
+            // Make Portfolio clickable
+            if (text.includes('github.io')) {
+                element.style.cursor = 'pointer';
+
+                element.addEventListener('click', function(e) {
+                    const originalContent = element.innerHTML;
+                    
+                    element.innerHTML = '<span class="contact-icon">✘</span><span>portfolio coming soon</span>';
+                    element.style.color = 'var(--color-info)';
+                    
+                    setTimeout(function() {
+                        element.innerHTML = originalContent;
+                        element.style.color = '';
+                    }, 2000);
+                });
+
+                element.addEventListener('mouseenter', function() {
+                    this.style.textDecoration = 'underline';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.textDecoration = 'none';
                 });
             }
             
-            // Add copy to clipboard on double click
-            element.addEventListener('dblclick', function() {
-                const textToCopy = text.replace(/^[📧📱📍💼🔗] /, '');
-                
-                // Try to copy to clipboard
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(textToCopy).then(function() {
-                        showCopyFeedback(element);
-                    }).catch(function() {
-                        // Fallback for older browsers
-                        fallbackCopy(textToCopy, element);
-                    });
-                } else {
-                    fallbackCopy(textToCopy, element);
+            // Add copy to clipboard functionality
+            element.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                copyToClipboard(text, element);
+            });
+            
+            // Add accessibility
+            element.setAttribute('tabindex', '0');
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    element.click();
                 }
             });
         });
+        
+        // Make GitHub project links clickable
+        const githubLinks = document.querySelectorAll('.github-link');
+        githubLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open('https://' + link.textContent, '_blank');
+            });
+            
+            link.setAttribute('tabindex', '0');
+            link.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    link.click();
+                }
+            });
+        });
+    }
+    
+    function copyToClipboard(text, element) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopyFeedback(element);
+            }).catch(function() {
+                fallbackCopy(text, element);
+            });
+        } else {
+            fallbackCopy(text, element);
+        }
     }
     
     function fallbackCopy(text, element) {
         const textArea = document.createElement('textarea');
         textArea.value = text;
         textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
@@ -280,52 +627,51 @@ document.addEventListener('DOMContentLoaded', function() {
             document.execCommand('copy');
             showCopyFeedback(element);
         } catch (err) {
-            console.log('Copy failed');
+            console.log('Copy failed:', err);
         }
         
         document.body.removeChild(textArea);
     }
     
     function showCopyFeedback(element) {
-        const originalText = element.textContent;
-        element.textContent = '✓ Copied!';
+        const originalContent = element.innerHTML;
+        element.innerHTML = '<span class="contact-icon">✓</span><span>Copied!</span>';
         element.style.color = 'var(--color-success)';
         
         setTimeout(function() {
-            element.textContent = originalText;
+            element.innerHTML = originalContent;
             element.style.color = '';
         }, 2000);
     }
     
     // Add accessibility improvements
     function setupAccessibility() {
-        // Add ARIA labels
-        if (nextBtn) nextBtn.setAttribute('aria-label', 'Go to next page of resume');
-        if (prevBtn) prevBtn.setAttribute('aria-label', 'Go to previous page of resume');
-        
         // Add page landmarks
-        page1.setAttribute('aria-label', 'Resume page 1 of 2: Summary, Skills, Education');
-        page2.setAttribute('aria-label', 'Resume page 2 of 2: Experience and Projects');
+        for (let i = 1; i <= totalPages; i++) {
+            if (pages[i]) {
+                const pageContent = getPageContentDescription(i);
+                pages[i].setAttribute('aria-label', `Resume page ${i}: ${pageContent}`);
+                pages[i].setAttribute('role', 'main');
+            }
+        }
         
-        // Add role attributes
-        page1.setAttribute('role', 'main');
-        page2.setAttribute('role', 'main');
-        
-        // Add skip links for better accessibility
+        // Add skip navigation
         const skipLink = document.createElement('a');
-        skipLink.href = '#main-content';
+        skipLink.href = '#page-content';
         skipLink.textContent = 'Skip to main content';
-        skipLink.className = 'sr-only';
+        skipLink.className = 'skip-link';
         skipLink.style.cssText = `
             position: absolute;
             left: -9999px;
             width: 1px;
             height: 1px;
             overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
         `;
         
         skipLink.addEventListener('focus', function() {
-            skipLink.style.cssText = `
+            this.style.cssText = `
                 position: fixed;
                 top: 10px;
                 left: 10px;
@@ -335,34 +681,72 @@ document.addEventListener('DOMContentLoaded', function() {
                 border-radius: 4px;
                 text-decoration: none;
                 z-index: 9999;
+                width: auto;
+                height: auto;
+                overflow: visible;
+                clip: auto;
+                white-space: normal;
             `;
         });
         
         skipLink.addEventListener('blur', function() {
-            skipLink.style.cssText = `
+            this.style.cssText = `
                 position: absolute;
                 left: -9999px;
                 width: 1px;
                 height: 1px;
                 overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
             `;
         });
         
         document.body.insertBefore(skipLink, document.body.firstChild);
     }
     
+    function getPageContentDescription(pageNumber) {
+        const descriptions = {
+            1: "Professional summary, technical skills",
+            2: "Education, certifications, and awards",
+            3: "Professional experience and achievements",
+            4: "Major projects and technical implementations",
+            5: "Additional projects and research contributions",
+            6: "Leadership experience, volunteer work, and languages"
+        };
+        return descriptions[pageNumber] || "Resume content";
+    }
+    
     // Initialize all functionality
+    console.log('Initializing 6-page resume application...');
+    
     setupPrint();
     setupTheme();
     setupContactInteractions();
     setupAccessibility();
+    createPageNavigation();
+    
+    // Initialize first page with proper button states
+    showPage(1);
     
     // Add smooth loading animation
     document.body.style.opacity = '0';
     setTimeout(function() {
         document.body.style.transition = 'opacity 0.5s ease';
         document.body.style.opacity = '1';
+        
+        setTimeout(() => {
+            document.body.style.transition = '';
+        }, 500);
     }, 100);
     
-    console.log('Resume application initialized successfully');
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            showPage(currentPage);
+        }, 250);
+    });
+    
+    console.log('6-page resume application initialized successfully - Madwesh J Devadiga');
 });

@@ -266,11 +266,10 @@ document.addEventListener('DOMContentLoaded', function() {
         printBtn.innerHTML = '🖨️ Print CV';
         printBtn.setAttribute('aria-label', 'Print complete resume as PDF');
         printBtn.id = 'print-resume-btn';
-        
+
+        // Base styles
         printBtn.style.cssText = `
             position: fixed;
-            top: 20px;
-            right: 20px;
             z-index: 1000;
             font-size: 14px;
             padding: 10px 16px;
@@ -280,32 +279,45 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: var(--radius-base);
             cursor: pointer;
             box-shadow: var(--shadow-lg);
-            transition: all var(--duration-normal) var(--ease-standard);
+            transition: all 0.22s ease;
             font-family: var(--font-family-base);
             font-weight: var(--font-weight-medium);
+            opacity: 1;
         `;
-        
+
+        // position depending on mobile or desktop
+        if (isMobileScreen()) {
+            printBtn.style.bottom = '18px';
+            printBtn.style.left = '14px';
+            printBtn.style.right = 'auto';
+            printBtn.style.top = 'auto';
+            printBtn.style.padding = '10px 14px';
+        } else {
+            printBtn.style.top = '20px';
+            printBtn.style.right = '20px';
+        }
+
         printBtn.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px)';
-            this.style.background = 'var(--color-primary-hover)';
+            this.style.boxShadow = 'var(--shadow-lg)';
         });
-        
+
         printBtn.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
-            this.style.background = 'var(--color-primary)';
+            this.style.boxShadow = 'var(--shadow-lg)';
         });
-        
+
         printBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             console.log('Print button clicked - preparing all 6 pages');
-            
+
             // Show loading state
             const originalText = this.innerHTML;
             this.innerHTML = '⏳ Preparing...';
             this.disabled = true;
-            
+
             // Store current page states
             const originalPageStates = {};
             for (let i = 1; i <= totalPages; i++) {
@@ -318,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                 }
             }
-            
+
             // Make all pages visible for printing
             for (let i = 1; i <= totalPages; i++) {
                 if (pages[i]) {
@@ -328,10 +340,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     pages[i].style.transition = 'none';
                 }
             }
-            
+
             // Add print-ready class to body
             document.body.classList.add('print-ready');
-            
+
             // Trigger print after ensuring layout is ready
             setTimeout(() => {
                 try {
@@ -348,11 +360,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         alert('Print failed. Please use Ctrl+P (Cmd+P on Mac) to print manually.');
                     }
                 }
-                
+
                 // Restore original state
                 setTimeout(() => {
                     document.body.classList.remove('print-ready');
-                    
+
                     // Restore original page states
                     for (let i = 1; i <= totalPages; i++) {
                         if (pages[i] && originalPageStates[i]) {
@@ -362,25 +374,24 @@ document.addEventListener('DOMContentLoaded', function() {
                             pages[i].style.transition = originalPageStates[i].transition;
                         }
                     }
-                    
+
                     // Reset button
                     printBtn.innerHTML = originalText;
                     printBtn.disabled = false;
-                    
+
                     // Show current page properly
                     showPage(currentPage);
                 }, 500);
             }, 200);
         });
-        
+
         document.body.appendChild(printBtn);
-        
-        // Enhanced print event handlers
+
+        // Enhanced print event handlers remain the same
         window.addEventListener('beforeprint', function(e) {
             console.log('Before print event - showing all pages');
             document.body.classList.add('printing');
-            
-            // Make all pages visible
+
             for (let i = 1; i <= totalPages; i++) {
                 if (pages[i]) {
                     pages[i].style.display = 'flex';
@@ -390,17 +401,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        
+
         window.addEventListener('afterprint', function(e) {
             console.log('After print event - restoring current page view');
             document.body.classList.remove('printing');
-            
+
             setTimeout(() => {
                 showPage(currentPage);
             }, 100);
         });
+
+        // Return the created button so caller can use it (for auto-hide setup)
+        return printBtn;
     }
-    
+
     // Theme toggle functionality
     function setupTheme() {
         const themeToggle = document.createElement('button');
@@ -408,11 +422,9 @@ document.addEventListener('DOMContentLoaded', function() {
         themeToggle.innerHTML = '🌙';
         themeToggle.setAttribute('aria-label', 'Toggle dark mode');
         themeToggle.id = 'theme-toggle-btn';
-        
+
         themeToggle.style.cssText = `
             position: fixed;
-            top: 80px;
-            right: 20px;
             z-index: 1000;
             width: 44px;
             height: 44px;
@@ -426,43 +438,54 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--color-text);
             cursor: pointer;
             box-shadow: var(--shadow-md);
-            transition: all var(--duration-normal) var(--ease-standard);
+            transition: all 0.22s ease;
             font-size: 18px;
+            opacity: 1;
         `;
-        
+
+        if (isMobileScreen()) {
+            themeToggle.style.bottom = '18px';
+            themeToggle.style.right = '14px';
+            themeToggle.style.left = 'auto';
+            themeToggle.style.top = 'auto';
+        } else {
+            themeToggle.style.top = '80px';
+            themeToggle.style.right = '20px';
+        }
+
         themeToggle.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-2px)';
             this.style.boxShadow = 'var(--shadow-lg)';
         });
-        
+
         themeToggle.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = 'var(--shadow-md)';
         });
-        
+
         themeToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const currentTheme = document.documentElement.getAttribute('data-color-scheme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             console.log('Theme toggle clicked, switching to:', newTheme);
-            
+
             document.documentElement.setAttribute('data-color-scheme', newTheme);
             this.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
-            
+
             // Save preference (with error handling since localStorage may not be available)
             try {
                 localStorage.setItem('resume-theme', newTheme);
             } catch (e) {
                 console.log('Could not save theme preference - localStorage not available');
             }
-            
+
             // Add theme transition effect
             document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
         });
-        
+
         // Load saved theme
         try {
             const savedTheme = localStorage.getItem('resume-theme');
@@ -480,10 +503,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) {
             console.log('Theme detection failed, using light theme');
         }
-        
+
         document.body.appendChild(themeToggle);
-        console.log('Theme toggle button created and added to page');
+
+        // Return the element so caller can wire up auto-hide
+        return themeToggle;
     }
+
     
     // Contact interactions
     function setupContactInteractions() {
@@ -718,12 +744,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all functionality
     console.log('Initializing 6-page resume application...');
-    
-    setupPrint();
-    setupTheme();
+    const printBtnElement = setupPrint();
+    const themeToggleElement = setupTheme();
+
+    // wire auto-hide only for mobile
+    setupMobileAutoHide([printBtnElement, themeToggleElement], 3000);
+
     setupContactInteractions();
     setupAccessibility();
     createPageNavigation();
+    setupSwipeNavigation();
     
     // Initialize first page with proper button states
     showPage(1);
@@ -747,6 +777,109 @@ document.addEventListener('DOMContentLoaded', function() {
             showPage(currentPage);
         }, 250);
     });
+
+    function isMobileScreen() {
+        return ('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.innerWidth <= 768;
+    }
+
+    // --- Swipe navigation for mobile ---
+    function setupSwipeNavigation() {
+        let startX = 0, startY = 0, endX = 0, endY = 0;
+        const threshold = 60; // px required to count as a swipe
+        const maxVerticalOffset = 120; // max vertical movement allowed
+        let touching = false;
+
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches && e.touches.length === 1) {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                touching = true;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!touching || !e.touches || e.touches.length !== 1) return;
+            endX = e.touches[0].clientX;
+            endY = e.touches[0].clientY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            if (!touching) return;
+            touching = false;
+            const dx = endX - startX;
+            const dy = endY - startY;
+            if (Math.abs(dx) > threshold && Math.abs(dy) < maxVerticalOffset) {
+                if (dx < 0) {
+                    // swipe left -> next page
+                    nextPage();
+                } else {
+                    // swipe right -> prev page
+                    prevPage();
+                }
+            }
+            // reset
+            startX = startY = endX = endY = 0;
+        }, { passive: true });
+    }
+
+    // --- Mobile auto-hide logic for action buttons ---
+    function setupMobileAutoHide(buttons = [], idleMs = 3000) {
+        if (!isMobileScreen()) {
+            // ensure buttons visible on non-mobile
+            buttons.forEach(b => {
+                b.style.opacity = '1';
+                b.style.transform = 'translateY(0)';
+                b.style.pointerEvents = 'auto';
+            });
+            return;
+        }
+
+        // set transitions if not already set
+        buttons.forEach(btn => {
+            btn.style.transition = btn.style.transition || 'opacity 220ms ease, transform 220ms ease';
+        });
+
+        let hideTimer = null;
+        function showButtons() {
+            buttons.forEach(b => {
+                b.style.opacity = '1';
+                b.style.transform = 'translateY(0)';
+                b.style.pointerEvents = 'auto';
+            });
+            resetHideTimer();
+        }
+
+        function hideButtons() {
+            buttons.forEach(b => {
+                // slide a bit and fade
+                b.style.opacity = '0';
+                b.style.transform = 'translateY(8px) scale(0.98)';
+                b.style.pointerEvents = 'none';
+            });
+        }
+
+        function resetHideTimer() {
+            if (hideTimer) clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => {
+                hideButtons();
+            }, idleMs);
+        }
+
+        // Interactions that should show the buttons again
+        ['touchstart', 'touchmove', 'touchend', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, function _showHandler() {
+                showButtons();
+            }, { passive: true });
+        });
+
+        // Also show when page navigation dots clicked (accessibility)
+        document.addEventListener('click', function(e) {
+            showButtons();
+        });
+
+        // Start the timer
+        resetHideTimer();
+    }
     
     console.log('6-page resume application initialized successfully - Madwesh J Devadiga');
 });

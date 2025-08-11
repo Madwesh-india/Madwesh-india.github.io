@@ -1426,8 +1426,11 @@ select.form-control {
     .soft-skill-item {
         width: 100%;
     }
+  .navigation-controls { display: none !important; }
 }
-
+@media (max-width: 1024px) {
+  .navigation-controls { display: none !important; }
+}
 /* Languages */
 .languages-grid {
     display: grid;

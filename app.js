@@ -236,6 +236,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         document.body.appendChild(pageNavigation);
+
+        return pageNavigation
     }
     
     // Update active page indicator
@@ -262,35 +264,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Print functionality - Enhanced version
     function setupPrint() {
         const printBtn = document.createElement('button');
-        printBtn.className = 'btn btn--primary no-print';
-        printBtn.innerHTML = '🖨️ Print CV';
+        printBtn.className = 'btn btn--secondary no-print';
+        printBtn.innerHTML = '🖨️';
         printBtn.setAttribute('aria-label', 'Print complete resume as PDF');
         printBtn.id = 'print-resume-btn';
 
-        // Base styles
         printBtn.style.cssText = `
             position: fixed;
             z-index: 1000;
-            font-size: 14px;
-            padding: 10px 16px;
-            background: var(--color-primary);
-            color: var(--color-btn-primary-text);
-            border: none;
-            border-radius: var(--radius-base);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-secondary);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
             cursor: pointer;
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-md);
             transition: all 0.22s ease;
-            font-family: var(--font-family-base);
-            font-weight: var(--font-weight-medium);
+            font-size: 18px;
             opacity: 1;
         `;
-
         // position depending on mobile or desktop
         if (isMobileScreen()) {
-            printBtn.style.bottom = '18px';
-            printBtn.style.left = '14px';
-            printBtn.style.right = 'auto';
-            printBtn.style.top = 'auto';
+            printBtn.style.top = '18px';
+            printBtn.style.right = '14px';
+            printBtn.style.left = 'auto';
+            printBtn.style.bottom = 'auto';
             printBtn.style.padding = '10px 14px';
         } else {
             printBtn.style.top = '20px';
@@ -747,14 +750,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const printBtnElement = setupPrint();
     const themeToggleElement = setupTheme();
 
-    // wire auto-hide only for mobile
-    setupMobileAutoHide([printBtnElement, themeToggleElement], 3000);
-
     setupContactInteractions();
     setupAccessibility();
-    createPageNavigation();
+    const navElement = createPageNavigation();
     setupSwipeNavigation();
     
+    // wire auto-hide only for mobile
+    setupMobileAutoHide([printBtnElement, themeToggleElement, navElement], 3000);
+
     // Initialize first page with proper button states
     showPage(1);
     
@@ -823,12 +826,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Mobile auto-hide logic for action buttons ---
-    function setupMobileAutoHide(buttons = [], idleMs = 3000) {
+    function setupMobileAutoHide(buttons = [], idleMs = 2000) {
         if (!isMobileScreen()) {
             // ensure buttons visible on non-mobile
             buttons.forEach(b => {
                 b.style.opacity = '1';
-                b.style.transform = 'translateY(0)';
+                // b.style.transform = 'translateY(0)';
                 b.style.pointerEvents = 'auto';
             });
             return;
@@ -843,7 +846,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function showButtons() {
             buttons.forEach(b => {
                 b.style.opacity = '1';
-                b.style.transform = 'translateY(0)';
+                // b.style.transform = 'translateY(0)';
                 b.style.pointerEvents = 'auto';
             });
             resetHideTimer();
@@ -853,7 +856,7 @@ document.addEventListener('DOMContentLoaded', function() {
             buttons.forEach(b => {
                 // slide a bit and fade
                 b.style.opacity = '0';
-                b.style.transform = 'translateY(8px) scale(0.98)';
+                // b.style.transform = 'translateY(8px) scale(0.98)';
                 b.style.pointerEvents = 'none';
             });
         }
